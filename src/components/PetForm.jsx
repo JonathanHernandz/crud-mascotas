@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PetContext } from "../context/PetContext";
-import breedsData from "../data/breeds.json"; // ✅ Lista base de razas
+import breedsData from "../data/breeds.json";
+import backIcon from "../assets/back.svg"; // ✅ Tu ícono SVG de retroceso
 
 export default function PetForm() {
   const { pets, addPet, editPet } = useContext(PetContext);
@@ -16,15 +17,13 @@ export default function PetForm() {
     existingPet || { nombre: "", edad: "", raza: "" }
   );
 
-  const [isOther, setIsOther] = useState(false); // ✅ Si marca “otro”
-  const [customRaza, setCustomRaza] = useState(""); // ✅ Valor manual
+  const [isOther, setIsOther] = useState(false);
+  const [customRaza, setCustomRaza] = useState("");
   const sortedBreeds = [...breedsData].sort((a, b) => a.localeCompare(b));
 
   useEffect(() => {
     if (existingPet) {
       setPet(existingPet);
-
-      // ✅ Si la raza no está en la lista, activar modo "otro"
       if (!breedsData.includes(existingPet.raza)) {
         setIsOther(true);
         setCustomRaza(existingPet.raza);
@@ -38,14 +37,18 @@ export default function PetForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 🔹 Validaciones básicas
     if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(pet.nombre.trim())) {
       toast.error("El nombre solo debe contener letras.");
       return;
     }
 
-    if (isNaN(pet.edad) || pet.edad <= 0) {
-      toast.error("La edad debe ser un número positivo.");
+    if (pet.nombre.length > 30) {
+      toast.error("El nombre no puede tener más de 30 caracteres.");
+      return;
+    }
+
+    if (isNaN(pet.edad) || pet.edad < 1 || pet.edad > 100) {
+      toast.error("La edad debe estar entre 1 y 100 años.");
       return;
     }
 
@@ -75,6 +78,24 @@ export default function PetForm() {
     >
       <Card className="shadow p-4 w-100" style={{ maxWidth: "700px" }}>
         <Card.Body>
+          {/* 🔙 Botón Back (ahora visible tanto en editar como en agregar) */}
+          <img
+            src={backIcon}
+            alt="Volver"
+            title="Volver"
+            onClick={() => navigate("/")}
+            style={{
+              width: "60px",
+              height: "60px",
+              cursor: "pointer",
+              marginBottom: "8px",
+              opacity: 0.8,
+              transition: "opacity 0.2s ease-in-out",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.8")}
+          />
+
           <Card.Title className="text-center mb-4 fw-bold fs-4">
             {existingPet ? "Editar Mascota" : "Agregar Mascota"}
           </Card.Title>
@@ -86,12 +107,12 @@ export default function PetForm() {
               <Form.Control
                 type="text"
                 value={pet.nombre}
-                onChange={(e) =>
-                  setPet({ ...pet, nombre: e.target.value })
-                }
+                maxLength={30}
+                onChange={(e) => setPet({ ...pet, nombre: e.target.value })}
                 placeholder="Nombre de la Mascota"
                 required
               />
+              <small className="text-muted">{pet.nombre.length}/30 caracteres</small>
             </Form.Group>
 
             {/* 🎂 Edad */}
@@ -100,11 +121,10 @@ export default function PetForm() {
               <Form.Control
                 type="number"
                 min="1"
+                max="100"
                 step="1"
                 value={pet.edad}
-                onChange={(e) =>
-                  setPet({ ...pet, edad: e.target.value })
-                }
+                onChange={(e) => setPet({ ...pet, edad: e.target.value })}
                 placeholder="Edad en años"
                 required
               />
@@ -131,7 +151,6 @@ export default function PetForm() {
                 </Form.Select>
               )}
 
-              {/* 🔘 Checkbox para escribir otra raza */}
               <Form.Check
                 type="checkbox"
                 id="otro"
@@ -144,7 +163,6 @@ export default function PetForm() {
                 }}
               />
 
-              {/* Campo visible solo si marca "Otro" */}
               {isOther && (
                 <Form.Control
                   type="text"
