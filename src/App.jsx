@@ -1,21 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 import { PetProvider } from './context/PetContext'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar'
 import { ToastContainer } from 'react-toastify'
 import PetList from './pages/PetList'
 import AddPet from './pages/AddPet'
+import AppNavbar from './components/AppNavbar'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <PetProvider>
       <BrowserRouter>
-        <Navbar/>
+        <AppNavbar />
         <Routes>
           <Route path="/" element={<PetList />} />
           <Route path="/add" element={<AddPet />} />

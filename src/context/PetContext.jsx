@@ -5,15 +5,26 @@ export const PetContext = createContext();
 
 export const PetProvider  = ({ children }) => {
     const [pets, setPets] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         const stored = localStorage.getItem("pets");
-        if (stored) setPets(JSON.parse(stored));
+        if (stored) {
+            try {
+                setPets(JSON.parse(stored));
+            } catch (error) {
+                console.error("Error al leer mascotas guardadas:", error);
+                setPets([]);
+            }
+        }
+        setIsLoaded(true);
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("pets", JSON.stringify(pets));
-    }, [pets]);
+        if (isLoaded) {
+            localStorage.setItem("pets", JSON.stringify(pets));
+        }
+    }, [pets, isLoaded]);
 
     const addPet = (pet) => { setPets([...pets,{...pet,id: Date.now()}]) };
     const deletePet = (id) => { setPets(pets.filter(pet => pet.id !== id)) };
