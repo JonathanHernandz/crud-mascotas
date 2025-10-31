@@ -1,5 +1,5 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #71777ec2;
     font-family: "Segoe UI", Roboto, sans-serif;
 }
 
@@ -187,3 +187,19 @@ thead th span span {
   font-weight: 600;
   font-size: 1.1rem;
 }
+
+.dogs-banner-container {
+  position: relative;
+  z-index: 2;
+  margin-bottom: -40px; /* 🔹 superposición sobre el formulario */
+}
+
+.dogs-banner {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+

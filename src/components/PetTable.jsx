@@ -10,14 +10,11 @@ export default function PetTable() {
   const { pets, deletePet } = useContext(PetContext);
   const navigate = useNavigate();
 
-  // 🔹 Búsqueda
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 🔹 Paginación
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // 🔹 Ordenamiento
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   const handleSort = (key) => {
@@ -26,7 +23,6 @@ export default function PetTable() {
     setSortConfig({ key, direction });
   };
 
-  // ✅ Filtrado general (nombre, edad, raza)
   const filteredPets = useMemo(() => {
     return pets.filter((pet) => {
       const term = searchTerm.toLowerCase();
@@ -38,7 +34,6 @@ export default function PetTable() {
     });
   }, [pets, searchTerm]);
 
-  // ✅ Ordenar correctamente
   const sortedPets = [...filteredPets].sort((a, b) => {
     if (!sortConfig.key) return 0;
     const key = sortConfig.key;
@@ -60,7 +55,6 @@ export default function PetTable() {
     }
   });
 
-  // 🔹 Paginación
   const totalPages = Math.ceil(sortedPets.length / itemsPerPage);
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
@@ -84,7 +78,6 @@ export default function PetTable() {
     <>
       <Card className="shadow-sm p-4 mt-4">
         <Card.Body>
-          {/* 🔍 Buscador en la parte superior */}
           <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap">
             <Card.Title className="fw-bold mb-2">Lista de Mascotas</Card.Title>
 
@@ -168,7 +161,6 @@ export default function PetTable() {
             </tbody>
           </Table>
 
-          {/* 🔹 Paginación */}
           {totalPages > 1 && (
             <div className="d-flex justify-content-center mt-3">
               <Pagination>
@@ -197,7 +189,6 @@ export default function PetTable() {
         </Card.Body>
       </Card>
 
-      {/* 🔹 Botón flotante para agregar */}
       <button
         onClick={() => navigate("/add")}
         className="fab-icon-button shadow-lg"

@@ -2,7 +2,7 @@ import { Navbar, Nav, Container, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HouseDoorFill, PlusCircleFill } from "react-bootstrap-icons";
-import logo from "../assets/pet-logo.png"; // ✅ Nuevo
+import logo from "../assets/pet-logo.png"; 
 
 export default function AppNavbar() {
     const [showMenu, setShowMenu] = useState(false);
@@ -15,11 +15,10 @@ export default function AppNavbar() {
             <Navbar
                 bg="primary"
                 variant="dark"
-                expand={false} // 🔹 Hamburguesa siempre visible
+                expand={false} // Hamburguesa siempre visible
                 className="shadow-sm py-2 px-3"
             >
                 <Container fluid className="d-flex align-items-center justify-content-between">
-                    {/* 🔹 Icono hamburguesa + título */}
                     <div className="d-flex align-items-center">
                         <Navbar.Toggle
                             aria-controls="offcanvasNavbar"
@@ -40,7 +39,7 @@ export default function AppNavbar() {
                 </Container>
             </Navbar>
 
-            {/* 🔹 Menú lateral más pequeño */}
+
             <Offcanvas
                 id="offcanvasNavbar"
                 show={showMenu}

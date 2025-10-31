@@ -4,7 +4,8 @@ import { Form, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { PetContext } from "../context/PetContext";
 import breedsData from "../data/breeds.json";
-import backIcon from "../assets/back.svg"; // ✅ Tu ícono SVG de retroceso
+import backIcon from "../assets/back.svg";
+import dogsBanner from "../assets/dogs-banner.png";
 
 export default function PetForm() {
   const { pets, addPet, editPet } = useContext(PetContext);
@@ -73,12 +74,14 @@ export default function PetForm() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center"
+      className="d-flex justify-content-center align-items-center flex-column"
       style={{ minHeight: "80vh" }}
     >
+      <div className="dogs-banner-container">
+        <img src={dogsBanner} alt="Banner de perros" className="dogs-banner" />
+      </div>
       <Card className="shadow p-4 w-100" style={{ maxWidth: "700px" }}>
         <Card.Body>
-          {/* 🔙 Botón Back (ahora visible tanto en editar como en agregar) */}
           <img
             src={backIcon}
             alt="Volver"
@@ -101,7 +104,6 @@ export default function PetForm() {
           </Card.Title>
 
           <Form onSubmit={handleSubmit}>
-            {/* 🐾 Nombre */}
             <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -115,7 +117,6 @@ export default function PetForm() {
               <small className="text-muted">{pet.nombre.length}/30 caracteres</small>
             </Form.Group>
 
-            {/* 🎂 Edad */}
             <Form.Group className="mb-3">
               <Form.Label>Edad (años)</Form.Label>
               <Form.Control
@@ -130,7 +131,6 @@ export default function PetForm() {
               />
             </Form.Group>
 
-            {/* 🐶 Raza */}
             <Form.Group className="mb-3">
               <Form.Label>Raza</Form.Label>
 

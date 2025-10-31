@@ -1,8 +1,23 @@
-# React + Vite
+## ⚙️ Instalación y Ejecución
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/JonathanHernandz/crud-mascotas.git
+cd crud-mascotas
+2️⃣ Instalar dependencias
+bash
+Copiar código
+npm install
+3️⃣ Ejecutar en modo desarrollo
+bash
+Copiar código
+npm run dev
+Luego abre en tu navegador 👉 http://localhost:5173
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+4️⃣ Compilar para producción
+bash
+Copiar código
+npm run build
+🌐 Versión en Producción
+El proyecto está desplegado y disponible en:
+🔗 https://crud-pet.netlify.app
