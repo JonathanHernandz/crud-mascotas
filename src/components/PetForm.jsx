@@ -49,7 +49,7 @@ export default function PetForm() {
     }
 
     if (isNaN(pet.edad) || pet.edad < 1 || pet.edad > 100) {
-      toast.error("La edad debe estar entre 1 y 100 años.");
+      toast.error("La edad debe ser entre 0 a 100.");
       return;
     }
 
